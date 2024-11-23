@@ -23,546 +23,546 @@ APP_LOCAL_DEVICE_ID :: struct {
 
 foreign import lib "GameInput/GameInput.lib"
 
-GameInputKind :: distinct bit_set[GameInputKind_FLAG;u32]
-GameInputKind_FLAG :: enum {
-	GameInputKindRawDeviceReport  = 0,
-	GameInputKindControllerAxis   = 1,
-	GameInputKindControllerButton = 2,
-	GameInputKindControllerSwitch = 3,
-	GameInputKindKeyboard         = 4,
-	GameInputKindMouse            = 5,
-	GameInputKindTouch            = 8,
-	GameInputKindMotion           = 12,
-	GameInputKindArcadeStick      = 16,
-	GameInputKindFlightStick      = 17,
-	GameInputKindGamepad          = 18,
-	GameInputKindRacingWheel      = 19,
-	GameInputKindUiNavigation     = 24,
+Kind :: distinct bit_set[Kind_FLAG;u32]
+Kind_FLAG :: enum {
+	RawDeviceReport  = 0,
+	ControllerAxis   = 1,
+	ControllerButton = 2,
+	ControllerSwitch = 3,
+	Keyboard         = 4,
+	Mouse            = 5,
+	Touch            = 8,
+	Motion           = 12,
+	ArcadeStick      = 16,
+	FlightStick      = 17,
+	Gamepad          = 18,
+	RacingWheel      = 19,
+	UiNavigation     = 24,
 }
-// GameInputKindUnknown          = 0x00000000,
-// GameInputKindController       = 0x0000000E,
-GAME_INPUT_KIND_CONTROLLER :: GameInputKind{.GameInputKindControllerAxis, .GameInputKindControllerButton, .GameInputKindControllerSwitch}
+// Unknown          = 0x00000000,
+// Controller       = 0x0000000E,
+KIND_CONTROLLER :: Kind{.ControllerAxis, .ControllerButton, .ControllerSwitch}
 
-GameInputEnumerationKind :: enum {
-	GameInputNoEnumeration       = 0,
-	GameInputAsyncEnumeration    = 1,
-	GameInputBlockingEnumeration = 2,
-}
-
-GameInputFocusPolicy :: distinct bit_set[GameInputFocusPolicy_FLAG;u32]
-GameInputFocusPolicy_FLAG :: enum {
-	GameInputDisableBackgroundInput   = 0,
-	GameInputExclusiveForegroundInput = 1,
-}
-// GameInputDefaultFocusPolicy       = 0x00000000,
-
-GameInputSwitchKind :: enum {
-	GameInputUnknownSwitchKind = -1,
-	GameInput2WaySwitch        = 0,
-	GameInput4WaySwitch        = 1,
-	GameInput8WaySwitch        = 2,
+EnumerationKind :: enum {
+	NoEnumeration       = 0,
+	AsyncEnumeration    = 1,
+	BlockingEnumeration = 2,
 }
 
-GameInputSwitchPosition :: enum {
-	GameInputSwitchCenter    = 0,
-	GameInputSwitchUp        = 1,
-	GameInputSwitchUpRight   = 2,
-	GameInputSwitchRight     = 3,
-	GameInputSwitchDownRight = 4,
-	GameInputSwitchDown      = 5,
-	GameInputSwitchDownLeft  = 6,
-	GameInputSwitchLeft      = 7,
-	GameInputSwitchUpLeft    = 8,
+FocusPolicy :: distinct bit_set[FocusPolicy_FLAG;u32]
+FocusPolicy_FLAG :: enum {
+	DisableBackgroundInput   = 0,
+	ExclusiveForegroundInput = 1,
+}
+// DefaultFocusPolicy       = 0x00000000,
+
+SwitchKind :: enum {
+	UnknownSwitchKind = -1,
+	_2WaySwitch        = 0,
+	_4WaySwitch        = 1,
+	_8WaySwitch        = 2,
 }
 
-GameInputKeyboardKind :: enum {
-	GameInputUnknownKeyboard = -1,
-	GameInputAnsiKeyboard    = 0,
-	GameInputIsoKeyboard     = 1,
-	GameInputKsKeyboard      = 2,
-	GameInputAbntKeyboard    = 3,
-	GameInputJisKeyboard     = 4,
+SwitchPosition :: enum {
+	SwitchCenter    = 0,
+	SwitchUp        = 1,
+	SwitchUpRight   = 2,
+	SwitchRight     = 3,
+	SwitchDownRight = 4,
+	SwitchDown      = 5,
+	SwitchDownLeft  = 6,
+	SwitchLeft      = 7,
+	SwitchUpLeft    = 8,
 }
 
-GameInputMouseButtons :: distinct bit_set[GameInputMouseButtons_FLAG;u32]
-GameInputMouseButtons_FLAG :: enum {
-	GameInputMouseLeftButton     = 0,
-	GameInputMouseRightButton    = 1,
-	GameInputMouseMiddleButton   = 2,
-	GameInputMouseButton4        = 3,
-	GameInputMouseButton5        = 4,
-	GameInputMouseWheelTiltLeft  = 5,
-	GameInputMouseWheelTiltRight = 6,
-}
-// GameInputMouseNone           = 0x00000000,
-
-GameInputTouchShape :: enum {
-	GameInputTouchShapeUnknown       = -1,
-	GameInputTouchShapePoint         = 0,
-	GameInputTouchShape1DLinear      = 1,
-	GameInputTouchShape1DRadial      = 2,
-	GameInputTouchShape1DIrregular   = 3,
-	GameInputTouchShape2DRectangular = 4,
-	GameInputTouchShape2DElliptical  = 5,
-	GameInputTouchShape2DIrregular   = 6,
+KeyboardKind :: enum {
+	UnknownKeyboard = -1,
+	AnsiKeyboard    = 0,
+	IsoKeyboard     = 1,
+	KsKeyboard      = 2,
+	AbntKeyboard    = 3,
+	JisKeyboard     = 4,
 }
 
-GameInputMotionAccuracy :: enum {
-	GameInputMotionAccuracyUnknown = -1,
-	GameInputMotionUnavailable     = 0,
-	GameInputMotionUnreliable      = 1,
-	GameInputMotionApproximate     = 2,
-	GameInputMotionAccurate        = 3,
+MouseButtons :: distinct bit_set[MouseButtons_FLAG;u32]
+MouseButtons_FLAG :: enum {
+	LeftButton     = 0,
+	RightButton    = 1,
+	MiddleButton   = 2,
+	Button4        = 3,
+	Button5        = 4,
+	WheelTiltLeft  = 5,
+	WheelTiltRight = 6,
+}
+// MouseNone           = 0x00000000,
+
+TouchShape :: enum {
+	Unknown       = -1,
+	Point         = 0,
+	_1DLinear      = 1,
+	_1DRadial      = 2,
+	_1DIrregular   = 3,
+	_2DRectangular = 4,
+	_2DElliptical  = 5,
+	_2DIrregular   = 6,
 }
 
-GameInputArcadeStickButtons :: distinct bit_set[GameInputArcadeStickButtons_FLAG;u32]
-GameInputArcadeStickButtons_FLAG :: enum {
-	GameInputArcadeStickMenu     = 0,
-	GameInputArcadeStickView     = 1,
-	GameInputArcadeStickUp       = 2,
-	GameInputArcadeStickDown     = 3,
-	GameInputArcadeStickLeft     = 4,
-	GameInputArcadeStickRight    = 5,
-	GameInputArcadeStickAction1  = 6,
-	GameInputArcadeStickAction2  = 7,
-	GameInputArcadeStickAction3  = 8,
-	GameInputArcadeStickAction4  = 9,
-	GameInputArcadeStickAction5  = 10,
-	GameInputArcadeStickAction6  = 11,
-	GameInputArcadeStickSpecial1 = 12,
-	GameInputArcadeStickSpecial2 = 13,
+MotionAccuracy :: enum {
+	AccuracyUnknown = -1,
+	Unavailable     = 0,
+	Unreliable      = 1,
+	Approximate     = 2,
+	Accurate        = 3,
 }
-// GameInputArcadeStickNone     = 0x00000000,
 
-GameInputFlightStickButtons :: distinct bit_set[GameInputFlightStickButtons_FLAG;u32]
-GameInputFlightStickButtons_FLAG :: enum {
-	GameInputFlightStickMenu          = 0,
-	GameInputFlightStickView          = 1,
-	GameInputFlightStickFirePrimary   = 2,
-	GameInputFlightStickFireSecondary = 3,
+ArcadeStickButtons :: distinct bit_set[ArcadeStickButtons_FLAG;u32]
+ArcadeStickButtons_FLAG :: enum {
+	Menu     = 0,
+	View     = 1,
+	Up       = 2,
+	Down     = 3,
+	Left     = 4,
+	Right    = 5,
+	Action1  = 6,
+	Action2  = 7,
+	Action3  = 8,
+	Action4  = 9,
+	Action5  = 10,
+	Action6  = 11,
+	Special1 = 12,
+	Special2 = 13,
 }
-// GameInputFlightStickNone          = 0x00000000,
+// ArcadeStickNone     = 0x00000000,
 
-GameInputGamepadButtons :: distinct bit_set[GameInputGamepadButtons_FLAG;u32]
-GameInputGamepadButtons_FLAG :: enum {
-	GameInputGamepadMenu            = 0,
-	GameInputGamepadView            = 1,
-	GameInputGamepadA               = 2,
-	GameInputGamepadB               = 3,
-	GameInputGamepadX               = 4,
-	GameInputGamepadY               = 5,
-	GameInputGamepadDPadUp          = 6,
-	GameInputGamepadDPadDown        = 7,
-	GameInputGamepadDPadLeft        = 8,
-	GameInputGamepadDPadRight       = 9,
-	GameInputGamepadLeftShoulder    = 10,
-	GameInputGamepadRightShoulder   = 11,
-	GameInputGamepadLeftThumbstick  = 12,
-	GameInputGamepadRightThumbstick = 13,
+FlightStickButtons :: distinct bit_set[FlightStickButtons_FLAG;u32]
+FlightStickButtons_FLAG :: enum {
+	Menu          = 0,
+	View          = 1,
+	FirePrimary   = 2,
+	FireSecondary = 3,
 }
-// GameInputGamepadNone            = 0x00000000,
+// FlightStickNone          = 0x00000000,
 
-GameInputRacingWheelButtons :: distinct bit_set[GameInputRacingWheelButtons_FLAG;u32]
-GameInputRacingWheelButtons_FLAG :: enum {
-	GameInputRacingWheelMenu         = 0,
-	GameInputRacingWheelView         = 1,
-	GameInputRacingWheelPreviousGear = 2,
-	GameInputRacingWheelNextGear     = 3,
-	GameInputRacingWheelDpadUp       = 4,
-	GameInputRacingWheelDpadDown     = 5,
-	GameInputRacingWheelDpadLeft     = 6,
-	GameInputRacingWheelDpadRight    = 7,
+GamepadButtons :: distinct bit_set[GamepadButtons_FLAG;u32]
+GamepadButtons_FLAG :: enum {
+	Menu            = 0,
+	View            = 1,
+	A               = 2,
+	B               = 3,
+	X               = 4,
+	Y               = 5,
+	DPadUp          = 6,
+	DPadDown        = 7,
+	DPadLeft        = 8,
+	DPadRight       = 9,
+	LeftShoulder    = 10,
+	RightShoulder   = 11,
+	LeftThumbstick  = 12,
+	RightThumbstick = 13,
 }
-// GameInputRacingWheelNone         = 0x00000000,
+// GamepadNone            = 0x00000000,
 
-GameInputUiNavigationButtons :: distinct bit_set[GameInputUiNavigationButtons_FLAG;u32]
-GameInputUiNavigationButtons_FLAG :: enum {
-	GameInputUiNavigationMenu        = 0,
-	GameInputUiNavigationView        = 1,
-	GameInputUiNavigationAccept      = 2,
-	GameInputUiNavigationCancel      = 3,
-	GameInputUiNavigationUp          = 4,
-	GameInputUiNavigationDown        = 5,
-	GameInputUiNavigationLeft        = 6,
-	GameInputUiNavigationRight       = 7,
-	GameInputUiNavigationContext1    = 8,
-	GameInputUiNavigationContext2    = 9,
-	GameInputUiNavigationContext3    = 10,
-	GameInputUiNavigationContext4    = 11,
-	GameInputUiNavigationPageUp      = 12,
-	GameInputUiNavigationPageDown    = 13,
-	GameInputUiNavigationPageLeft    = 14,
-	GameInputUiNavigationPageRight   = 15,
-	GameInputUiNavigationScrollUp    = 16,
-	GameInputUiNavigationScrollDown  = 17,
-	GameInputUiNavigationScrollLeft  = 18,
-	GameInputUiNavigationScrollRight = 19,
+RacingWheelButtons :: distinct bit_set[RacingWheelButtons_FLAG;u32]
+RacingWheelButtons_FLAG :: enum {
+	Menu         = 0,
+	View         = 1,
+	PreviousGear = 2,
+	NextGear     = 3,
+	DpadUp       = 4,
+	DpadDown     = 5,
+	DpadLeft     = 6,
+	DpadRight    = 7,
 }
-// GameInputUiNavigationNone        = 0x00000000,
+// RacingWheelNone         = 0x00000000,
 
-GameInputDeviceStatus :: distinct bit_set[GameInputDeviceStatus_FLAG;u32]
-GameInputDeviceStatus_FLAG :: enum {
-	GameInputDeviceConnected     = 0,
-	GameInputDeviceInputEnabled  = 1,
-	GameInputDeviceOutputEnabled = 2,
-	GameInputDeviceRawIoEnabled  = 3,
-	GameInputDeviceAudioCapture  = 4,
-	GameInputDeviceAudioRender   = 5,
-	GameInputDeviceSynchronized  = 6,
-	GameInputDeviceWireless      = 7,
-	GameInputDeviceUserIdle      = 20,
+UiNavigationButtons :: distinct bit_set[UiNavigationButtons_FLAG;u32]
+UiNavigationButtons_FLAG :: enum {
+	Menu        = 0,
+	View        = 1,
+	Accept      = 2,
+	Cancel      = 3,
+	Up          = 4,
+	Down        = 5,
+	Left        = 6,
+	Right       = 7,
+	Context1    = 8,
+	Context2    = 9,
+	Context3    = 10,
+	Context4    = 11,
+	PageUp      = 12,
+	PageDown    = 13,
+	PageLeft    = 14,
+	PageRight   = 15,
+	ScrollUp    = 16,
+	ScrollDown  = 17,
+	ScrollLeft  = 18,
+	ScrollRight = 19,
 }
-// GameInputDeviceNoStatus      = 0x00000000,
-// GameInputDeviceAnyStatus     = 0x00FFFFFF,
-GAME_INPUT_DEVICE_ANY_STATUS := transmute(GameInputDeviceStatus)u32(0x00FFFFFF)
+// UiNavigationNone        = 0x00000000,
+
+DeviceStatus :: distinct bit_set[DeviceStatus_FLAG;u32]
+DeviceStatus_FLAG :: enum {
+	Connected     = 0,
+	InputEnabled  = 1,
+	OutputEnabled = 2,
+	RawIoEnabled  = 3,
+	AudioCapture  = 4,
+	AudioRender   = 5,
+	Synchronized  = 6,
+	Wireless      = 7,
+	UserIdle      = 20,
+}
+// DeviceNoStatus      = 0x00000000,
+// DeviceAnyStatus     = 0x00FFFFFF,
+DEVICE_ANY_STATUS := transmute(DeviceStatus)u32(0x00FFFFFF)
 // FIXME
 
-GameInputBatteryStatus :: enum {
-	GameInputBatteryUnknown     = -1,
-	GameInputBatteryNotPresent  = 0,
-	GameInputBatteryDischarging = 1,
-	GameInputBatteryIdle        = 2,
-	GameInputBatteryCharging    = 3,
+BatteryStatus :: enum {
+	Unknown     = -1,
+	NotPresent  = 0,
+	Discharging = 1,
+	Idle        = 2,
+	Charging    = 3,
 }
 
-GameInputDeviceFamily :: enum {
-	GameInputFamilyVirtual   = -1,
-	GameInputFamilyAggregate = 0,
-	GameInputFamilyXboxOne   = 1,
-	GameInputFamilyXbox360   = 2,
-	GameInputFamilyHid       = 3,
-	GameInputFamilyI8042     = 4,
+DeviceFamily :: enum {
+	Virtual   = -1,
+	Aggregate = 0,
+	XboxOne   = 1,
+	Xbox360   = 2,
+	Hid       = 3,
+	I8042     = 4,
 }
 
-GameInputDeviceCapabilities :: distinct bit_set[GameInputDeviceCapabilities_FLAG;u32]
-GameInputDeviceCapabilities_FLAG :: enum {
-	GameInputDeviceCapabilityAudio           = 0,
-	GameInputDeviceCapabilityPluginModule    = 1,
-	GameInputDeviceCapabilityPowerOff        = 2,
-	GameInputDeviceCapabilitySynchronization = 3,
-	GameInputDeviceCapabilityWireless        = 4,
+DeviceCapabilities :: distinct bit_set[DeviceCapabilities_FLAG;u32]
+DeviceCapabilities_FLAG :: enum {
+	Audio           = 0,
+	PluginModule    = 1,
+	PowerOff        = 2,
+	Synchronization = 3,
+	Wireless        = 4,
 }
-// GameInputDeviceCapabilityNone            = 0x00000000,
+// DeviceCapabilityNone            = 0x00000000,
 
-GameInputRawDeviceReportKind :: enum {
-	GameInputRawInputReport   = 0,
-	GameInputRawOutputReport  = 1,
-	GameInputRawFeatureReport = 2,
-}
-
-GameInputRawDeviceReportItemFlags :: distinct bit_set[GameInputRawDeviceReportItemFlags_FLAG;u32]
-GameInputRawDeviceReportItemFlags_FLAG :: enum {
-	GameInputConstantItem   = 0,
-	GameInputArrayItem      = 1,
-	GameInputRelativeItem   = 2,
-	GameInputWraparoundItem = 3,
-	GameInputNonlinearItem  = 4,
-	GameInputStableItem     = 5,
-	GameInputNullableItem   = 6,
-	GameInputVolatileItem   = 7,
-	GameInputBufferedItem   = 8,
-}
-// GameInputDefaultItem    = 0x00000000,
-
-GameInputRawDeviceItemCollectionKind :: enum {
-	GameInputUnknownItemCollection       = -1,
-	GameInputPhysicalItemCollection      = 0,
-	GameInputApplicationItemCollection   = 1,
-	GameInputLogicalItemCollection       = 2,
-	GameInputReportItemCollection        = 3,
-	GameInputNamedArrayItemCollection    = 4,
-	GameInputUsageSwitchItemCollection   = 5,
-	GameInputUsageModifierItemCollection = 6,
+RawDeviceReportKind :: enum {
+	InputReport   = 0,
+	OutputReport  = 1,
+	FeatureReport = 2,
 }
 
-GameInputRawDevicePhysicalUnitKind :: enum {
-	GameInputPhysicalUnitUnknown             = -1,
-	GameInputPhysicalUnitNone                = 0,
-	GameInputPhysicalUnitTime                = 1,
-	GameInputPhysicalUnitFrequency           = 2,
-	GameInputPhysicalUnitLength              = 3,
-	GameInputPhysicalUnitVelocity            = 4,
-	GameInputPhysicalUnitAcceleration        = 5,
-	GameInputPhysicalUnitMass                = 6,
-	GameInputPhysicalUnitMomentum            = 7,
-	GameInputPhysicalUnitForce               = 8,
-	GameInputPhysicalUnitPressure            = 9,
-	GameInputPhysicalUnitAngle               = 10,
-	GameInputPhysicalUnitAngularVelocity     = 11,
-	GameInputPhysicalUnitAngularAcceleration = 12,
-	GameInputPhysicalUnitAngularMass         = 13,
-	GameInputPhysicalUnitAngularMomentum     = 14,
-	GameInputPhysicalUnitAngularTorque       = 15,
-	GameInputPhysicalUnitElectricCurrent     = 16,
-	GameInputPhysicalUnitElectricCharge      = 17,
-	GameInputPhysicalUnitElectricPotential   = 18,
-	GameInputPhysicalUnitEnergy              = 19,
-	GameInputPhysicalUnitPower               = 20,
-	GameInputPhysicalUnitTemperature         = 21,
-	GameInputPhysicalUnitLuminousIntensity   = 22,
-	GameInputPhysicalUnitLuminousFlux        = 23,
-	GameInputPhysicalUnitIlluminance         = 24,
+RawDeviceReportItemFlags :: distinct bit_set[RawDeviceReportItemFlags_FLAG;u32]
+RawDeviceReportItemFlags_FLAG :: enum {
+	ConstantItem   = 0,
+	ArrayItem      = 1,
+	RelativeItem   = 2,
+	WraparoundItem = 3,
+	NonlinearItem  = 4,
+	StableItem     = 5,
+	NullableItem   = 6,
+	VolatileItem   = 7,
+	BufferedItem   = 8,
+}
+// DefaultItem    = 0x00000000,
+
+RawDeviceItemCollectionKind :: enum {
+	UnknownItemCollection       = -1,
+	PhysicalItemCollection      = 0,
+	ApplicationItemCollection   = 1,
+	LogicalItemCollection       = 2,
+	ReportItemCollection        = 3,
+	NamedArrayItemCollection    = 4,
+	UsageSwitchItemCollection   = 5,
+	UsageModifierItemCollection = 6,
 }
 
-GameInputLabel :: enum {
-	GameInputLabelUnknown                  = -1,
-	GameInputLabelNone                     = 0,
-	GameInputLabelXboxGuide                = 1,
-	GameInputLabelXboxBack                 = 2,
-	GameInputLabelXboxStart                = 3,
-	GameInputLabelXboxMenu                 = 4,
-	GameInputLabelXboxView                 = 5,
-	GameInputLabelXboxA                    = 7,
-	GameInputLabelXboxB                    = 8,
-	GameInputLabelXboxX                    = 9,
-	GameInputLabelXboxY                    = 10,
-	GameInputLabelXboxDPadUp               = 11,
-	GameInputLabelXboxDPadDown             = 12,
-	GameInputLabelXboxDPadLeft             = 13,
-	GameInputLabelXboxDPadRight            = 14,
-	GameInputLabelXboxLeftShoulder         = 15,
-	GameInputLabelXboxLeftTrigger          = 16,
-	GameInputLabelXboxLeftStickButton      = 17,
-	GameInputLabelXboxRightShoulder        = 18,
-	GameInputLabelXboxRightTrigger         = 19,
-	GameInputLabelXboxRightStickButton     = 20,
-	GameInputLabelXboxPaddle1              = 21,
-	GameInputLabelXboxPaddle2              = 22,
-	GameInputLabelXboxPaddle3              = 23,
-	GameInputLabelXboxPaddle4              = 24,
-	GameInputLabelLetterA                  = 25,
-	GameInputLabelLetterB                  = 26,
-	GameInputLabelLetterC                  = 27,
-	GameInputLabelLetterD                  = 28,
-	GameInputLabelLetterE                  = 29,
-	GameInputLabelLetterF                  = 30,
-	GameInputLabelLetterG                  = 31,
-	GameInputLabelLetterH                  = 32,
-	GameInputLabelLetterI                  = 33,
-	GameInputLabelLetterJ                  = 34,
-	GameInputLabelLetterK                  = 35,
-	GameInputLabelLetterL                  = 36,
-	GameInputLabelLetterM                  = 37,
-	GameInputLabelLetterN                  = 38,
-	GameInputLabelLetterO                  = 39,
-	GameInputLabelLetterP                  = 40,
-	GameInputLabelLetterQ                  = 41,
-	GameInputLabelLetterR                  = 42,
-	GameInputLabelLetterS                  = 43,
-	GameInputLabelLetterT                  = 44,
-	GameInputLabelLetterU                  = 45,
-	GameInputLabelLetterV                  = 46,
-	GameInputLabelLetterW                  = 47,
-	GameInputLabelLetterX                  = 48,
-	GameInputLabelLetterY                  = 49,
-	GameInputLabelLetterZ                  = 50,
-	GameInputLabelNumber0                  = 51,
-	GameInputLabelNumber1                  = 52,
-	GameInputLabelNumber2                  = 53,
-	GameInputLabelNumber3                  = 54,
-	GameInputLabelNumber4                  = 55,
-	GameInputLabelNumber5                  = 56,
-	GameInputLabelNumber6                  = 57,
-	GameInputLabelNumber7                  = 58,
-	GameInputLabelNumber8                  = 59,
-	GameInputLabelNumber9                  = 60,
-	GameInputLabelArrowUp                  = 61,
-	GameInputLabelArrowUpRight             = 62,
-	GameInputLabelArrowRight               = 63,
-	GameInputLabelArrowDownRight           = 64,
-	GameInputLabelArrowDown                = 65,
-	GameInputLabelArrowDownLLeft           = 66,
-	GameInputLabelArrowLeft                = 67,
-	GameInputLabelArrowUpLeft              = 68,
-	GameInputLabelArrowUpDown              = 69,
-	GameInputLabelArrowLeftRight           = 70,
-	GameInputLabelArrowUpDownLeftRight     = 71,
-	GameInputLabelArrowClockwise           = 72,
-	GameInputLabelArrowCounterClockwise    = 73,
-	GameInputLabelArrowReturn              = 74,
-	GameInputLabelIconBranding             = 75,
-	GameInputLabelIconHome                 = 76,
-	GameInputLabelIconMenu                 = 77,
-	GameInputLabelIconCross                = 78,
-	GameInputLabelIconCircle               = 79,
-	GameInputLabelIconSquare               = 80,
-	GameInputLabelIconTriangle             = 81,
-	GameInputLabelIconStar                 = 82,
-	GameInputLabelIconDPadUp               = 83,
-	GameInputLabelIconDPadDown             = 84,
-	GameInputLabelIconDPadLeft             = 85,
-	GameInputLabelIconDPadRight            = 86,
-	GameInputLabelIconDialClockwise        = 87,
-	GameInputLabelIconDialCounterClockwise = 88,
-	GameInputLabelIconSliderLeftRight      = 89,
-	GameInputLabelIconSliderUpDown         = 90,
-	GameInputLabelIconWheelUpDown          = 91,
-	GameInputLabelIconPlus                 = 92,
-	GameInputLabelIconMinus                = 93,
-	GameInputLabelIconSuspension           = 94,
-	GameInputLabelHome                     = 95,
-	GameInputLabelGuide                    = 96,
-	GameInputLabelMode                     = 97,
-	GameInputLabelSelect                   = 98,
-	GameInputLabelMenu                     = 99,
-	GameInputLabelView                     = 100,
-	GameInputLabelBack                     = 101,
-	GameInputLabelStart                    = 102,
-	GameInputLabelOptions                  = 103,
-	GameInputLabelShare                    = 104,
-	GameInputLabelUp                       = 105,
-	GameInputLabelDown                     = 106,
-	GameInputLabelLeft                     = 107,
-	GameInputLabelRight                    = 108,
-	GameInputLabelLB                       = 109,
-	GameInputLabelLT                       = 110,
-	GameInputLabelLSB                      = 111,
-	GameInputLabelL1                       = 112,
-	GameInputLabelL2                       = 113,
-	GameInputLabelL3                       = 114,
-	GameInputLabelRB                       = 115,
-	GameInputLabelRT                       = 116,
-	GameInputLabelRSB                      = 117,
-	GameInputLabelR1                       = 118,
-	GameInputLabelR2                       = 119,
-	GameInputLabelR3                       = 120,
-	GameInputLabelP1                       = 121,
-	GameInputLabelP2                       = 122,
-	GameInputLabelP3                       = 123,
-	GameInputLabelP4                       = 124,
+RawDevicePhysicalUnitKind :: enum {
+	Unknown             = -1,
+	None                = 0,
+	Time                = 1,
+	Frequency           = 2,
+	Length              = 3,
+	Velocity            = 4,
+	Acceleration        = 5,
+	Mass                = 6,
+	Momentum            = 7,
+	Force               = 8,
+	Pressure            = 9,
+	Angle               = 10,
+	AngularVelocity     = 11,
+	AngularAcceleration = 12,
+	AngularMass         = 13,
+	AngularMomentum     = 14,
+	AngularTorque       = 15,
+	ElectricCurrent     = 16,
+	ElectricCharge      = 17,
+	ElectricPotential   = 18,
+	Energy              = 19,
+	Power               = 20,
+	Temperature         = 21,
+	LuminousIntensity   = 22,
+	LuminousFlux        = 23,
+	Illuminance         = 24,
 }
 
-GameInputLocation :: enum {
-	GameInputLocationUnknown  = -1,
-	GameInputLocationChassis  = 0,
-	GameInputLocationDisplay  = 1,
-	GameInputLocationAxis     = 2,
-	GameInputLocationButton   = 3,
-	GameInputLocationSwitch   = 4,
-	GameInputLocationKey      = 5,
-	GameInputLocationTouchPad = 6,
+Label :: enum {
+	Unknown                  = -1,
+	None                     = 0,
+	XboxGuide                = 1,
+	XboxBack                 = 2,
+	XboxStart                = 3,
+	XboxMenu                 = 4,
+	XboxView                 = 5,
+	XboxA                    = 7,
+	XboxB                    = 8,
+	XboxX                    = 9,
+	XboxY                    = 10,
+	XboxDPadUp               = 11,
+	XboxDPadDown             = 12,
+	XboxDPadLeft             = 13,
+	XboxDPadRight            = 14,
+	XboxLeftShoulder         = 15,
+	XboxLeftTrigger          = 16,
+	XboxLeftStickButton      = 17,
+	XboxRightShoulder        = 18,
+	XboxRightTrigger         = 19,
+	XboxRightStickButton     = 20,
+	XboxPaddle1              = 21,
+	XboxPaddle2              = 22,
+	XboxPaddle3              = 23,
+	XboxPaddle4              = 24,
+	LetterA                  = 25,
+	LetterB                  = 26,
+	LetterC                  = 27,
+	LetterD                  = 28,
+	LetterE                  = 29,
+	LetterF                  = 30,
+	LetterG                  = 31,
+	LetterH                  = 32,
+	LetterI                  = 33,
+	LetterJ                  = 34,
+	LetterK                  = 35,
+	LetterL                  = 36,
+	LetterM                  = 37,
+	LetterN                  = 38,
+	LetterO                  = 39,
+	LetterP                  = 40,
+	LetterQ                  = 41,
+	LetterR                  = 42,
+	LetterS                  = 43,
+	LetterT                  = 44,
+	LetterU                  = 45,
+	LetterV                  = 46,
+	LetterW                  = 47,
+	LetterX                  = 48,
+	LetterY                  = 49,
+	LetterZ                  = 50,
+	Number0                  = 51,
+	Number1                  = 52,
+	Number2                  = 53,
+	Number3                  = 54,
+	Number4                  = 55,
+	Number5                  = 56,
+	Number6                  = 57,
+	Number7                  = 58,
+	Number8                  = 59,
+	Number9                  = 60,
+	ArrowUp                  = 61,
+	ArrowUpRight             = 62,
+	ArrowRight               = 63,
+	ArrowDownRight           = 64,
+	ArrowDown                = 65,
+	ArrowDownLLeft           = 66,
+	ArrowLeft                = 67,
+	ArrowUpLeft              = 68,
+	ArrowUpDown              = 69,
+	ArrowLeftRight           = 70,
+	ArrowUpDownLeftRight     = 71,
+	ArrowClockwise           = 72,
+	ArrowCounterClockwise    = 73,
+	ArrowReturn              = 74,
+	IconBranding             = 75,
+	IconHome                 = 76,
+	IconMenu                 = 77,
+	IconCross                = 78,
+	IconCircle               = 79,
+	IconSquare               = 80,
+	IconTriangle             = 81,
+	IconStar                 = 82,
+	IconDPadUp               = 83,
+	IconDPadDown             = 84,
+	IconDPadLeft             = 85,
+	IconDPadRight            = 86,
+	IconDialClockwise        = 87,
+	IconDialCounterClockwise = 88,
+	IconSliderLeftRight      = 89,
+	IconSliderUpDown         = 90,
+	IconWheelUpDown          = 91,
+	IconPlus                 = 92,
+	IconMinus                = 93,
+	IconSuspension           = 94,
+	Home                     = 95,
+	Guide                    = 96,
+	Mode                     = 97,
+	Select                   = 98,
+	Menu                     = 99,
+	View                     = 100,
+	Back                     = 101,
+	Start                    = 102,
+	Options                  = 103,
+	Share                    = 104,
+	Up                       = 105,
+	Down                     = 106,
+	Left                     = 107,
+	Right                    = 108,
+	LB                       = 109,
+	LT                       = 110,
+	LSB                      = 111,
+	L1                       = 112,
+	L2                       = 113,
+	L3                       = 114,
+	RB                       = 115,
+	RT                       = 116,
+	RSB                      = 117,
+	R1                       = 118,
+	R2                       = 119,
+	R3                       = 120,
+	P1                       = 121,
+	P2                       = 122,
+	P3                       = 123,
+	P4                       = 124,
 }
 
-GameInputFeedbackAxes :: distinct bit_set[GameInputFeedbackAxes_FLAG;u32]
-GameInputFeedbackAxes_FLAG :: enum {
-	GameInputFeedbackAxisLinearX  = 0,
-	GameInputFeedbackAxisLinearY  = 1,
-	GameInputFeedbackAxisLinearZ  = 2,
-	GameInputFeedbackAxisAngularX = 3,
-	GameInputFeedbackAxisAngularY = 4,
-	GameInputFeedbackAxisAngularZ = 5,
-	GameInputFeedbackAxisNormal   = 6,
-}
-// GameInputFeedbackAxisNone     = 0x00000000,
-
-GameInputFeedbackEffectState :: enum {
-	GameInputFeedbackStopped = 0,
-	GameInputFeedbackRunning = 1,
-	GameInputFeedbackPaused  = 2,
+Location :: enum {
+	Unknown  = -1,
+	Chassis  = 0,
+	Display  = 1,
+	Axis     = 2,
+	Button   = 3,
+	Switch   = 4,
+	Key      = 5,
+	TouchPad = 6,
 }
 
-GameInputForceFeedbackEffectKind :: enum {
-	GameInputForceFeedbackConstant         = 0,
-	GameInputForceFeedbackRamp             = 1,
-	GameInputForceFeedbackSineWave         = 2,
-	GameInputForceFeedbackSquareWave       = 3,
-	GameInputForceFeedbackTriangleWave     = 4,
-	GameInputForceFeedbackSawtoothUpWave   = 5,
-	GameInputForceFeedbackSawtoothDownWave = 6,
-	GameInputForceFeedbackSpring           = 7,
-	GameInputForceFeedbackFriction         = 8,
-	GameInputForceFeedbackDamper           = 9,
-	GameInputForceFeedbackInertia          = 10,
+FeedbackAxes :: distinct bit_set[FeedbackAxes_FLAG;u32]
+FeedbackAxes_FLAG :: enum {
+	LinearX  = 0,
+	LinearY  = 1,
+	LinearZ  = 2,
+	AngularX = 3,
+	AngularY = 4,
+	AngularZ = 5,
+	Normal   = 6,
+}
+// FeedbackAxisNone     = 0x00000000,
+
+FeedbackEffectState :: enum {
+	Stopped = 0,
+	Running = 1,
+	Paused  = 2,
 }
 
-GameInputRumbleMotors :: distinct bit_set[GameInputRumbleMotors_FLAG;u32]
-GameInputRumbleMotors_FLAG :: enum {
-	GameInputRumbleLowFrequency  = 0,
-	GameInputRumbleHighFrequency = 1,
-	GameInputRumbleLeftTrigger   = 2,
-	GameInputRumbleRightTrigger  = 3,
+ForceFeedbackEffectKind :: enum {
+	Constant         = 0,
+	Ramp             = 1,
+	SineWave         = 2,
+	SquareWave       = 3,
+	TriangleWave     = 4,
+	SawtoothUpWave   = 5,
+	SawtoothDownWave = 6,
+	Spring           = 7,
+	Friction         = 8,
+	Damper           = 9,
+	Inertia          = 10,
 }
-// GameInputRumbleNone          = 0x00000000,
+
+RumbleMotors :: distinct bit_set[RumbleMotors_FLAG;u32]
+RumbleMotors_FLAG :: enum {
+	LowFrequency  = 0,
+	HighFrequency = 1,
+	LeftTrigger   = 2,
+	RightTrigger  = 3,
+}
+// RumbleNone          = 0x00000000,
 
 IGameInput :: struct #raw_union {
 	#subtype iUnknown:       win.IUnknown,
 	using iGameInput_vtable: ^IGameInput_VTable,
 }
-IGameInputReading :: struct #raw_union {
+IReading :: struct #raw_union {
 	#subtype iUnknown:              win.IUnknown,
-	using iGameInputReading_vtable: ^IGameInputReading_VTable,
+	using iReading_vtable: ^IReading_VTable,
 }
-IGameInputDevice :: struct #raw_union {
+IDevice :: struct #raw_union {
 	#subtype iUnknown:             win.IUnknown,
-	using iGameInputDevice_vtable: ^IGameInputDevice_VTable,
+	using iDevice_vtable: ^IDevice_VTable,
 }
-IGameInputDispatcher :: struct #raw_union {
+IDispatcher :: struct #raw_union {
 	#subtype iUnknown:                 win.IUnknown,
-	using iGameInputDispatcher_vtable: ^IGameInputDispatcher_VTable,
+	using iDispatcher_vtable: ^IDispatcher_VTable,
 }
-IGameInputForceFeedbackEffect :: struct #raw_union {
+IForceFeedbackEffect :: struct #raw_union {
 	#subtype iUnknown:                          win.IUnknown,
-	using iGameInputForceFeedbackEffect_vtable: ^IGameInputForceFeedbackEffect_VTable,
+	using iForceFeedbackEffect_vtable: ^IForceFeedbackEffect_VTable,
 }
-IGameInputRawDeviceReport :: struct #raw_union {
+IRawDeviceReport :: struct #raw_union {
 	#subtype iUnknown:                      win.IUnknown,
-	using iGameInputRawDeviceReport_vtable: ^IGameInputRawDeviceReport_VTable,
+	using iRawDeviceReport_vtable: ^IRawDeviceReport_VTable,
 }
 
-GameInputCallbackToken :: u64
+CallbackToken :: u64
 
-GAMEINPUT_CURRENT_CALLBACK_TOKEN_VALUE: win.c_ulonglong : 0xFFFFFFFFFFFFFFFF
-GAMEINPUT_INVALID_CALLBACK_TOKEN_VALUE: win.c_ulonglong : 0x0000000000000000
+CURRENT_CALLBACK_TOKEN_VALUE: win.c_ulonglong : 0xFFFFFFFFFFFFFFFF
+INVALID_CALLBACK_TOKEN_VALUE: win.c_ulonglong : 0x0000000000000000
 
-GameInputReadingCallback :: #type proc "system" (
-	callbackToken: GameInputCallbackToken,
+ReadingCallback :: #type proc "system" (
+	callbackToken: CallbackToken,
 	ctx: rawptr,
-	reading: ^IGameInputReading,
+	reading: ^IReading,
 	hasOverrunOccurred: bool,
 )
 
-GameInputDeviceCallback :: #type proc "system" (
-	callbackToken: GameInputCallbackToken,
+DeviceCallback :: #type proc "system" (
+	callbackToken: CallbackToken,
 	ctx: rawptr,
-	device: ^IGameInputDevice,
+	device: ^IDevice,
 	timestamp: u64,
-	currentStatus: GameInputDeviceStatus,
-	previousStatus: GameInputDeviceStatus,
+	currentStatus: DeviceStatus,
+	previousStatus: DeviceStatus,
 )
 
-GameInputGuideButtonCallback :: #type proc "system" (
-	callbackToken: GameInputCallbackToken,
+GuideButtonCallback :: #type proc "system" (
+	callbackToken: CallbackToken,
 	ctx: rawptr,
-	device: ^IGameInputDevice,
+	device: ^IDevice,
 	timestamp: u64,
 	isPressed: bool,
 )
 
-GameInputKeyboardLayoutCallback :: #type proc "system" (
-	callbackToken: GameInputCallbackToken,
+KeyboardLayoutCallback :: #type proc "system" (
+	callbackToken: CallbackToken,
 	ctx: rawptr,
-	device: ^IGameInputDevice,
+	device: ^IDevice,
 	timestamp: u64,
 	currentLayout: u32,
 	previousLayout: u32,
 )
 
-GameInputKeyState :: struct {
+KeyState :: struct {
 	scanCode:   u32,
 	codePoint:  u32,
 	virtualKey: u8,
 	isDeadKey:  bool,
 }
 
-GameInputMouseState :: struct {
-	buttons:   GameInputMouseButtons,
+MouseState :: struct {
+	buttons:   MouseButtons,
 	positionX: i64,
 	positionY: i64,
 	wheelX:    i64,
 	wheelY:    i64,
 }
 
-GameInputTouchState :: struct {
+TouchState :: struct {
 	touchId:           u64,
 	sensorIndex:       u32,
 	positionX:         f32,
@@ -575,7 +575,7 @@ GameInputTouchState :: struct {
 	contactRectBottom: f32,
 }
 
-GameInputMotionState :: struct {
+MotionState :: struct {
 	accelerationX:         f32,
 	accelerationY:         f32,
 	accelerationZ:         f32,
@@ -589,27 +589,27 @@ GameInputMotionState :: struct {
 	orientationX:          f32,
 	orientationY:          f32,
 	orientationZ:          f32,
-	accelerometerAccuracy: GameInputMotionAccuracy,
-	gyroscopeAccuracy:     GameInputMotionAccuracy,
-	magnetometerAccuracy:  GameInputMotionAccuracy,
-	orientationAccuracy:   GameInputMotionAccuracy,
+	accelerometerAccuracy: MotionAccuracy,
+	gyroscopeAccuracy:     MotionAccuracy,
+	magnetometerAccuracy:  MotionAccuracy,
+	orientationAccuracy:   MotionAccuracy,
 }
 
-GameInputArcadeStickState :: struct {
-	buttons: GameInputArcadeStickButtons,
+ArcadeStickState :: struct {
+	buttons: ArcadeStickButtons,
 }
 
-GameInputFlightStickState :: struct {
-	buttons:   GameInputFlightStickButtons,
-	hatSwitch: GameInputSwitchPosition,
+FlightStickState :: struct {
+	buttons:   FlightStickButtons,
+	hatSwitch: SwitchPosition,
 	roll:      f32,
 	pitch:     f32,
 	yaw:       f32,
 	throttle:  f32,
 }
 
-GameInputGamepadState :: struct {
-	buttons:          GameInputGamepadButtons,
+GamepadState :: struct {
+	buttons:          GamepadButtons,
 	leftTrigger:      f32,
 	rightTrigger:     f32,
 	leftThumbstickX:  f32,
@@ -618,8 +618,8 @@ GameInputGamepadState :: struct {
 	rightThumbstickY: f32,
 }
 
-GameInputRacingWheelState :: struct {
-	buttons:            GameInputRacingWheelButtons,
+RacingWheelState :: struct {
+	buttons:            RacingWheelButtons,
 	patternShifterGear: i32,
 	wheel:              f32,
 	throttle:           f32,
@@ -628,79 +628,79 @@ GameInputRacingWheelState :: struct {
 	handbrake:          f32,
 }
 
-GameInputUiNavigationState :: struct {
-	buttons: GameInputUiNavigationButtons,
+UiNavigationState :: struct {
+	buttons: UiNavigationButtons,
 }
 
-GameInputBatteryState :: struct {
+BatteryState :: struct {
 	chargeRate:         f32,
 	maxChargeRate:      f32,
 	remainingCapacity:  f32,
 	fullChargeCapacity: f32,
-	status:             GameInputBatteryStatus,
+	status:             BatteryStatus,
 }
 
-GameInputString :: struct {
+String :: struct {
 	sizeInBytes:    u32,
 	codePointCount: u32,
 	data:           cstring,
 }
 
-GameInputUsage :: struct {
+Usage :: struct {
 	page: u16,
 	id:   u16,
 }
 
-GameInputVersion :: struct {
+Version :: struct {
 	major:    u16,
 	minor:    u16,
 	build:    u16,
 	revision: u16,
 }
 
-GameInputRawDeviceItemCollectionInfo :: struct {
-	kind:            GameInputRawDeviceItemCollectionKind,
+RawDeviceItemCollectionInfo :: struct {
+	kind:            RawDeviceItemCollectionKind,
 	childCount:      u32,
 	siblingCount:    u32,
 	usageCount:      u32,
-	usages:          [^]GameInputUsage,
-	parent:          ^GameInputRawDeviceItemCollectionInfo,
-	firstSibling:    ^GameInputRawDeviceItemCollectionInfo,
-	previousSibling: ^GameInputRawDeviceItemCollectionInfo,
-	nextSibling:     ^GameInputRawDeviceItemCollectionInfo,
-	lastSibling:     ^GameInputRawDeviceItemCollectionInfo,
-	firstChild:      ^GameInputRawDeviceItemCollectionInfo,
-	lastChild:       ^GameInputRawDeviceItemCollectionInfo,
+	usages:          [^]Usage,
+	parent:          ^RawDeviceItemCollectionInfo,
+	firstSibling:    ^RawDeviceItemCollectionInfo,
+	previousSibling: ^RawDeviceItemCollectionInfo,
+	nextSibling:     ^RawDeviceItemCollectionInfo,
+	lastSibling:     ^RawDeviceItemCollectionInfo,
+	firstChild:      ^RawDeviceItemCollectionInfo,
+	lastChild:       ^RawDeviceItemCollectionInfo,
 }
 
-GameInputRawDeviceReportItemInfo :: struct {
+RawDeviceReportItemInfo :: struct {
 	bitOffset:                u32,
 	bitSize:                  u32,
 	logicalMin:               i64,
 	logicalMax:               i64,
 	physicalMin:              f64,
 	physicalMax:              f64,
-	physicalUnits:            GameInputRawDevicePhysicalUnitKind,
+	physicalUnits:            RawDevicePhysicalUnitKind,
 	rawPhysicalUnits:         u32,
 	rawPhysicalUnitsExponent: i32,
-	flags:                    GameInputRawDeviceReportItemFlags,
+	flags:                    RawDeviceReportItemFlags,
 	usageCount:               u32,
-	usages:                   [^]GameInputUsage,
-	collection:               ^GameInputRawDeviceItemCollectionInfo,
-	itemString:               ^GameInputString,
+	usages:                   [^]Usage,
+	collection:               ^RawDeviceItemCollectionInfo,
+	itemString:               ^String,
 }
 
-GameInputRawDeviceReportInfo :: struct {
-	kind:      GameInputRawDeviceReportKind,
+RawDeviceReportInfo :: struct {
+	kind:      RawDeviceReportKind,
 	id:        u32,
 	size:      u32,
 	itemCount: u32,
-	items:     [^]GameInputRawDeviceReportItemInfo,
+	items:     [^]RawDeviceReportItemInfo,
 }
 
-GameInputControllerAxisInfo :: struct {
-	mappedInputKinds:  GameInputKind,
-	label:             GameInputLabel,
+ControllerAxisInfo :: struct {
+	mappedInputKinds:  Kind,
+	label:             Label,
 	isContinuous:      bool,
 	isNonlinear:       bool,
 	isQuantized:       bool,
@@ -710,59 +710,59 @@ GameInputControllerAxisInfo :: struct {
 	legacyDInputIndex: u16,
 	legacyHidIndex:    u16,
 	rawReportIndex:    u32,
-	inputReport:       ^GameInputRawDeviceReportInfo,
-	inputReportItem:   ^GameInputRawDeviceReportItemInfo,
+	inputReport:       ^RawDeviceReportInfo,
+	inputReportItem:   ^RawDeviceReportItemInfo,
 }
 
-GameInputControllerButtonInfo :: struct {
-	mappedInputKinds:  GameInputKind,
-	label:             GameInputLabel,
+ControllerButtonInfo :: struct {
+	mappedInputKinds:  Kind,
+	label:             Label,
 	legacyDInputIndex: u16,
 	legacyHidIndex:    u16,
 	rawReportIndex:    u32,
-	inputReport:       ^GameInputRawDeviceReportInfo,
-	inputReportItem:   ^GameInputRawDeviceReportItemInfo,
+	inputReport:       ^RawDeviceReportInfo,
+	inputReportItem:   ^RawDeviceReportItemInfo,
 }
 
-GameInputControllerSwitchInfo :: struct {
-	mappedInputKinds:  GameInputKind,
-	label:             GameInputLabel,
-	positionLabels:    [9]GameInputLabel,
-	kind:              GameInputSwitchKind,
+ControllerSwitchInfo :: struct {
+	mappedInputKinds:  Kind,
+	label:             Label,
+	positionLabels:    [9]Label,
+	kind:              SwitchKind,
 	legacyDInputIndex: u16,
 	legacyHidIndex:    u16,
 	rawReportIndex:    u32,
-	inputReport:       ^GameInputRawDeviceReportInfo,
-	inputReportItem:   ^GameInputRawDeviceReportItemInfo,
+	inputReport:       ^RawDeviceReportInfo,
+	inputReportItem:   ^RawDeviceReportItemInfo,
 }
 
-GameInputKeyboardInfo :: struct {
-	kind:                GameInputKeyboardKind,
+KeyboardInfo :: struct {
+	kind:                KeyboardKind,
 	layout:              u32,
 	keyCount:            u32,
 	functionKeyCount:    u32,
 	maxSimultaneousKeys: u32,
 	platformType:        u32,
 	platformSubtype:     u32,
-	nativeLanguage:      ^GameInputString,
+	nativeLanguage:      ^String,
 }
 
-GameInputMouseInfo :: struct {
-	supportedButtons: GameInputMouseButtons,
+MouseInfo :: struct {
+	supportedButtons: MouseButtons,
 	sampleRate:       u32,
 	sensorDpi:        u32,
 	hasWheelX:        bool,
 	hasWheelY:        bool,
 }
 
-GameInputTouchSensorInfo :: struct {
-	mappedInputKinds: GameInputKind,
-	label:            GameInputLabel,
-	location:         GameInputLocation,
+TouchSensorInfo :: struct {
+	mappedInputKinds: Kind,
+	label:            Label,
+	location:         Location,
 	locationId:       u32,
 	resolutionX:      u64,
 	resolutionY:      u64,
-	shape:            GameInputTouchShape,
+	shape:            TouchShape,
 	aspectRatio:      f32,
 	orientation:      f32,
 	physicalWidth:    f32,
@@ -772,63 +772,63 @@ GameInputTouchSensorInfo :: struct {
 	maxTouchPoints:   u32,
 }
 
-GameInputMotionInfo :: struct {
+MotionInfo :: struct {
 	maxAcceleration:          f32,
 	maxAngularVelocity:       f32,
 	maxMagneticFieldStrength: f32,
 }
 
-GameInputArcadeStickInfo :: struct {
-	menuButtonLabel:     GameInputLabel,
-	viewButtonLabel:     GameInputLabel,
-	stickUpLabel:        GameInputLabel,
-	stickDownLabel:      GameInputLabel,
-	stickLeftLabel:      GameInputLabel,
-	stickRightLabel:     GameInputLabel,
-	actionButton1Label:  GameInputLabel,
-	actionButton2Label:  GameInputLabel,
-	actionButton3Label:  GameInputLabel,
-	actionButton4Label:  GameInputLabel,
-	actionButton5Label:  GameInputLabel,
-	actionButton6Label:  GameInputLabel,
-	specialButton1Label: GameInputLabel,
-	specialButton2Label: GameInputLabel,
+ArcadeStickInfo :: struct {
+	menuButtonLabel:     Label,
+	viewButtonLabel:     Label,
+	stickUpLabel:        Label,
+	stickDownLabel:      Label,
+	stickLeftLabel:      Label,
+	stickRightLabel:     Label,
+	actionButton1Label:  Label,
+	actionButton2Label:  Label,
+	actionButton3Label:  Label,
+	actionButton4Label:  Label,
+	actionButton5Label:  Label,
+	actionButton6Label:  Label,
+	specialButton1Label: Label,
+	specialButton2Label: Label,
 }
 
-GameInputFlightStickInfo :: struct {
-	menuButtonLabel:          GameInputLabel,
-	viewButtonLabel:          GameInputLabel,
-	firePrimaryButtonLabel:   GameInputLabel,
-	fireSecondaryButtonLabel: GameInputLabel,
-	hatSwitchKind:            GameInputSwitchKind,
+FlightStickInfo :: struct {
+	menuButtonLabel:          Label,
+	viewButtonLabel:          Label,
+	firePrimaryButtonLabel:   Label,
+	fireSecondaryButtonLabel: Label,
+	hatSwitchKind:            SwitchKind,
 }
 
-GameInputGamepadInfo :: struct {
-	menuButtonLabel:            GameInputLabel,
-	viewButtonLabel:            GameInputLabel,
-	aButtonLabel:               GameInputLabel,
-	bButtonLabel:               GameInputLabel,
-	xButtonLabel:               GameInputLabel,
-	yButtonLabel:               GameInputLabel,
-	dpadUpLabel:                GameInputLabel,
-	dpadDownLabel:              GameInputLabel,
-	dpadLeftLabel:              GameInputLabel,
-	dpadRightLabel:             GameInputLabel,
-	leftShoulderButtonLabel:    GameInputLabel,
-	rightShoulderButtonLabel:   GameInputLabel,
-	leftThumbstickButtonLabel:  GameInputLabel,
-	rightThumbstickButtonLabel: GameInputLabel,
+GamepadInfo :: struct {
+	menuButtonLabel:            Label,
+	viewButtonLabel:            Label,
+	aButtonLabel:               Label,
+	bButtonLabel:               Label,
+	xButtonLabel:               Label,
+	yButtonLabel:               Label,
+	dpadUpLabel:                Label,
+	dpadDownLabel:              Label,
+	dpadLeftLabel:              Label,
+	dpadRightLabel:             Label,
+	leftShoulderButtonLabel:    Label,
+	rightShoulderButtonLabel:   Label,
+	leftThumbstickButtonLabel:  Label,
+	rightThumbstickButtonLabel: Label,
 }
 
-GameInputRacingWheelInfo :: struct {
-	menuButtonLabel:         GameInputLabel,
-	viewButtonLabel:         GameInputLabel,
-	previousGearButtonLabel: GameInputLabel,
-	nextGearButtonLabel:     GameInputLabel,
-	dpadUpLabel:             GameInputLabel,
-	dpadDownLabel:           GameInputLabel,
-	dpadLeftLabel:           GameInputLabel,
-	dpadRightLabel:          GameInputLabel,
+RacingWheelInfo :: struct {
+	menuButtonLabel:         Label,
+	viewButtonLabel:         Label,
+	previousGearButtonLabel: Label,
+	nextGearButtonLabel:     Label,
+	dpadUpLabel:             Label,
+	dpadDownLabel:           Label,
+	dpadLeftLabel:           Label,
+	dpadRightLabel:          Label,
 	hasClutch:               bool,
 	hasHandbrake:            bool,
 	hasPatternShifter:       bool,
@@ -837,33 +837,33 @@ GameInputRacingWheelInfo :: struct {
 	maxWheelAngle:           f32,
 }
 
-GameInputUiNavigationInfo :: struct {
-	menuButtonLabel:        GameInputLabel,
-	viewButtonLabel:        GameInputLabel,
-	acceptButtonLabel:      GameInputLabel,
-	cancelButtonLabel:      GameInputLabel,
-	upButtonLabel:          GameInputLabel,
-	downButtonLabel:        GameInputLabel,
-	leftButtonLabel:        GameInputLabel,
-	rightButtonLabel:       GameInputLabel,
-	contextButton1Label:    GameInputLabel,
-	contextButton2Label:    GameInputLabel,
-	contextButton3Label:    GameInputLabel,
-	contextButton4Label:    GameInputLabel,
-	pageUpButtonLabel:      GameInputLabel,
-	pageDownButtonLabel:    GameInputLabel,
-	pageLeftButtonLabel:    GameInputLabel,
-	pageRightButtonLabel:   GameInputLabel,
-	scrollUpButtonLabel:    GameInputLabel,
-	scrollDownButtonLabel:  GameInputLabel,
-	scrollLeftButtonLabel:  GameInputLabel,
-	scrollRightButtonLabel: GameInputLabel,
-	guideButtonLabel:       GameInputLabel,
+UiNavigationInfo :: struct {
+	menuButtonLabel:        Label,
+	viewButtonLabel:        Label,
+	acceptButtonLabel:      Label,
+	cancelButtonLabel:      Label,
+	upButtonLabel:          Label,
+	downButtonLabel:        Label,
+	leftButtonLabel:        Label,
+	rightButtonLabel:       Label,
+	contextButton1Label:    Label,
+	contextButton2Label:    Label,
+	contextButton3Label:    Label,
+	contextButton4Label:    Label,
+	pageUpButtonLabel:      Label,
+	pageDownButtonLabel:    Label,
+	pageLeftButtonLabel:    Label,
+	pageRightButtonLabel:   Label,
+	scrollUpButtonLabel:    Label,
+	scrollDownButtonLabel:  Label,
+	scrollLeftButtonLabel:  Label,
+	scrollRightButtonLabel: Label,
+	guideButtonLabel:       Label,
 }
 
-GameInputForceFeedbackMotorInfo :: struct {
-	supportedAxes:                     GameInputFeedbackAxes,
-	location:                          GameInputLocation,
+ForceFeedbackMotorInfo :: struct {
+	supportedAxes:                     FeedbackAxes,
+	location:                          Location,
 	locationId:                        u32,
 	maxSimultaneousEffects:            u32,
 	isConstantEffectSupported:         bool,
@@ -879,8 +879,8 @@ GameInputForceFeedbackMotorInfo :: struct {
 	isInertiaEffectSupported:          bool,
 }
 
-GameInputHapticWaveformInfo :: struct {
-	usage:                  GameInputUsage,
+HapticWaveformInfo :: struct {
+	usage:                  Usage,
 	isDurationSupported:    bool,
 	isIntensitySupported:   bool,
 	isRepeatSupported:      bool,
@@ -888,30 +888,30 @@ GameInputHapticWaveformInfo :: struct {
 	defaultDuration:        u64,
 }
 
-GameInputHapticFeedbackMotorInfo :: struct {
-	mappedRumbleMotors: GameInputRumbleMotors,
-	location:           GameInputLocation,
+HapticFeedbackMotorInfo :: struct {
+	mappedRumbleMotors: RumbleMotors,
+	location:           Location,
 	locationId:         u32,
 	waveformCount:      u32,
-	waveformInfo:       [^]GameInputHapticWaveformInfo,
+	waveformInfo:       [^]HapticWaveformInfo,
 }
 
-GameInputDeviceInfo :: struct {
+DeviceInfo :: struct {
 	infoSize:                 u32,
 	vendorId:                 u16,
 	productId:                u16,
 	revisionNumber:           u16,
 	interfaceNumber:          u8,
 	collectionNumber:         u8,
-	usage:                    GameInputUsage,
-	hardwareVersion:          GameInputVersion,
-	firmwareVersion:          GameInputVersion,
+	usage:                    Usage,
+	hardwareVersion:          Version,
+	firmwareVersion:          Version,
 	deviceId:                 APP_LOCAL_DEVICE_ID,
 	deviceRootId:             APP_LOCAL_DEVICE_ID,
-	deviceFamily:             GameInputDeviceFamily,
-	capabilities:             GameInputDeviceCapabilities,
-	supportedInput:           GameInputKind,
-	supportedRumbleMotors:    GameInputRumbleMotors,
+	deviceFamily:             DeviceFamily,
+	capabilities:             DeviceCapabilities,
+	supportedInput:           Kind,
+	supportedRumbleMotors:    RumbleMotors,
 	inputReportCount:         u32,
 	outputReportCount:        u32,
 	featureReportCount:       u32,
@@ -924,29 +924,29 @@ GameInputDeviceInfo :: struct {
 	hapticFeedbackMotorCount: u32,
 	deviceStringCount:        u32,
 	deviceDescriptorSize:     u32,
-	inputReportInfo:          [^]GameInputRawDeviceReportInfo,
-	outputReportInfo:         [^]GameInputRawDeviceReportInfo,
-	featureReportInfo:        [^]GameInputRawDeviceReportInfo,
-	controllerAxisInfo:       [^]GameInputControllerAxisInfo,
-	controllerButtonInfo:     [^]GameInputControllerButtonInfo,
-	controllerSwitchInfo:     [^]GameInputControllerSwitchInfo,
-	keyboardInfo:             ^GameInputKeyboardInfo,
-	mouseInfo:                ^GameInputMouseInfo,
-	touchSensorInfo:          [^]GameInputTouchSensorInfo,
-	motionInfo:               ^GameInputMotionInfo,
-	arcadeStickInfo:          ^GameInputArcadeStickInfo,
-	flightStickInfo:          ^GameInputFlightStickInfo,
-	gamepadInfo:              ^GameInputGamepadInfo,
-	racingWheelInfo:          ^GameInputRacingWheelInfo,
-	uiNavigationInfo:         ^GameInputUiNavigationInfo,
-	forceFeedbackMotorInfo:   [^]GameInputForceFeedbackMotorInfo,
-	hapticFeedbackMotorInfo:  [^]GameInputHapticFeedbackMotorInfo,
-	displayName:              ^GameInputString,
-	deviceStrings:            [^]GameInputString,
+	inputReportInfo:          [^]RawDeviceReportInfo,
+	outputReportInfo:         [^]RawDeviceReportInfo,
+	featureReportInfo:        [^]RawDeviceReportInfo,
+	controllerAxisInfo:       [^]ControllerAxisInfo,
+	controllerButtonInfo:     [^]ControllerButtonInfo,
+	controllerSwitchInfo:     [^]ControllerSwitchInfo,
+	keyboardInfo:             ^KeyboardInfo,
+	mouseInfo:                ^MouseInfo,
+	touchSensorInfo:          [^]TouchSensorInfo,
+	motionInfo:               ^MotionInfo,
+	arcadeStickInfo:          ^ArcadeStickInfo,
+	flightStickInfo:          ^FlightStickInfo,
+	gamepadInfo:              ^GamepadInfo,
+	racingWheelInfo:          ^RacingWheelInfo,
+	uiNavigationInfo:         ^UiNavigationInfo,
+	forceFeedbackMotorInfo:   [^]ForceFeedbackMotorInfo,
+	hapticFeedbackMotorInfo:  [^]HapticFeedbackMotorInfo,
+	displayName:              ^String,
+	deviceStrings:            [^]String,
 	deviceDescriptorData:     rawptr,
 }
 
-GameInputForceFeedbackEnvelope :: struct {
+ForceFeedbackEnvelope :: struct {
 	attackDuration:  u64,
 	sustainDuration: u64,
 	releaseDuration: u64,
@@ -957,7 +957,7 @@ GameInputForceFeedbackEnvelope :: struct {
 	repeatDelay:     u64,
 }
 
-GameInputForceFeedbackMagnitude :: struct {
+ForceFeedbackMagnitude :: struct {
 	linearX:  f32,
 	linearY:  f32,
 	linearZ:  f32,
@@ -967,8 +967,8 @@ GameInputForceFeedbackMagnitude :: struct {
 	normal:   f32,
 }
 
-GameInputForceFeedbackConditionParams :: struct {
-	magnitude:            GameInputForceFeedbackMagnitude,
+ForceFeedbackConditionParams :: struct {
+	magnitude:            ForceFeedbackMagnitude,
 	positiveCoefficient:  f32,
 	negativeCoefficient:  f32,
 	maxPositiveMagnitude: f32,
@@ -977,43 +977,43 @@ GameInputForceFeedbackConditionParams :: struct {
 	bias:                 f32,
 }
 
-GameInputForceFeedbackConstantParams :: struct {
-	envelope:  GameInputForceFeedbackEnvelope,
-	magnitude: GameInputForceFeedbackMagnitude,
+ForceFeedbackConstantParams :: struct {
+	envelope:  ForceFeedbackEnvelope,
+	magnitude: ForceFeedbackMagnitude,
 }
 
-GameInputForceFeedbackPeriodicParams :: struct {
-	envelope:  GameInputForceFeedbackEnvelope,
-	magnitude: GameInputForceFeedbackMagnitude,
+ForceFeedbackPeriodicParams :: struct {
+	envelope:  ForceFeedbackEnvelope,
+	magnitude: ForceFeedbackMagnitude,
 	frequency: f32,
 	phase:     f32,
 	bias:      f32,
 }
 
-GameInputForceFeedbackRampParams :: struct {
-	envelope:       GameInputForceFeedbackEnvelope,
-	startMagnitude: GameInputForceFeedbackMagnitude,
-	endMagnitude:   GameInputForceFeedbackMagnitude,
+ForceFeedbackRampParams :: struct {
+	envelope:       ForceFeedbackEnvelope,
+	startMagnitude: ForceFeedbackMagnitude,
+	endMagnitude:   ForceFeedbackMagnitude,
 }
 
-GameInputForceFeedbackParams :: struct {
-	kind: GameInputForceFeedbackEffectKind,
+ForceFeedbackParams :: struct {
+	kind: ForceFeedbackEffectKind,
 	data: struct #raw_union {
-		constant:         GameInputForceFeedbackConstantParams,
-		ramp:             GameInputForceFeedbackRampParams,
-		sineWave:         GameInputForceFeedbackPeriodicParams,
-		squareWave:       GameInputForceFeedbackPeriodicParams,
-		triangleWave:     GameInputForceFeedbackPeriodicParams,
-		sawtoothUpWave:   GameInputForceFeedbackPeriodicParams,
-		sawtoothDownWave: GameInputForceFeedbackPeriodicParams,
-		spring:           GameInputForceFeedbackConditionParams,
-		friction:         GameInputForceFeedbackConditionParams,
-		damper:           GameInputForceFeedbackConditionParams,
-		inertia:          GameInputForceFeedbackConditionParams,
+		constant:         ForceFeedbackConstantParams,
+		ramp:             ForceFeedbackRampParams,
+		sineWave:         ForceFeedbackPeriodicParams,
+		squareWave:       ForceFeedbackPeriodicParams,
+		triangleWave:     ForceFeedbackPeriodicParams,
+		sawtoothUpWave:   ForceFeedbackPeriodicParams,
+		sawtoothDownWave: ForceFeedbackPeriodicParams,
+		spring:           ForceFeedbackConditionParams,
+		friction:         ForceFeedbackConditionParams,
+		damper:           ForceFeedbackConditionParams,
+		inertia:          ForceFeedbackConditionParams,
 	},
 }
 
-GameInputHapticFeedbackParams :: struct {
+HapticFeedbackParams :: struct {
 	waveformIndex: u32,
 	duration:      u64,
 	intensity:     f32,
@@ -1021,7 +1021,7 @@ GameInputHapticFeedbackParams :: struct {
 	repeatDelay:   u64,
 }
 
-GameInputRumbleParams :: struct {
+RumbleParams :: struct {
 	lowFrequency:  f32,
 	highFrequency: f32,
 	leftTrigger:   f32,
@@ -1034,7 +1034,7 @@ GameInputRumbleParams :: struct {
 
 @(default_calling_convention = "system")
 foreign lib {
-	GameInputCreate :: proc(gameInput: ^^IGameInput) -> win.HRESULT ---
+	Create :: proc(gameInput: ^^IGameInput) -> win.HRESULT ---
 }
 
 FACILITY_GAMEINPUT :: 906
