@@ -1,39 +1,42 @@
 package main
 
-import gi ".."
+import "base:runtime"
 import "core:fmt"
+import win "core:sys/windows"
+import gameinput ".."
 
 main :: proc() {
-	game_input: ^gi.IGameInput
-	assert(gi.GameInputCreate(&game_input) == 0)
+	gi: ^gameinput.IGameInput
+	assert(gameinput.Create(&gi) == 0)
 
-	fmt.println("GameInput timestamp:", game_input.GetCurrentTimestamp(game_input))
+	fmt.println("GameInput timestamp:", gi->GetCurrentTimestamp())
 
 	// https://learn.microsoft.com/en-us/gaming/gdk/_content/gc/reference/input/gameinput/interfaces/igameinput/methods/igameinput_registerdevicecallback
-	token: gi.GameInputCallbackToken
+	token: gameinput.CallbackToken
 
-	if game_input.RegisterDeviceCallback(
-		   game_input,
-		   nil,
-		   {.GameInputKindMouse, .GameInputKindKeyboard},
-		   {.GameInputDeviceConnected},
-		   .GameInputBlockingEnumeration,
-		   nil,
-		   gi.GameInputDeviceCallback(device_callback),
-		   &token,
-	   ) ==
-	   0 {
-		game_input.UnregisterCallback(game_input, token, 5000)
+	hres := gi->RegisterDeviceCallback(
+		   device          = nil,
+		   inputKind       = {.Mouse, .Keyboard},
+		   statusFilter    = {.Connected},
+		   enumerationKind = .BlockingEnumeration,
+		   ctx             = nil,
+		   callbackFunc    = device_callback,
+		   callbackToken   = &token
+	)
+	if win.FAILED(hres) {
+		gi->UnregisterCallback(token, 5000)
 	}
 }
 
-device_callback :: proc(
-	callbackToken: gi.GameInputCallbackToken,
-	ctx: rawptr,
-	device: ^gi.IGameInputDevice,
-	timestamp: u64,
-	currentStatus: gi.GameInputDeviceStatus,
-	previousStatus: gi.GameInputDeviceStatus,
-) {
-	fmt.println(device.GetDeviceInfo(device)^)
+device_callback :: proc "stdcall" (
+	callbackToken  : gameinput.CallbackToken,
+	ctx            : rawptr,
+	device         : ^gameinput.IDevice,
+	timestamp      : u64,
+	currentStatus  : gameinput.DeviceStatus,
+	previousStatus : gameinput.DeviceStatus,
+        ) {
+
+        context = runtime.default_context()
+        fmt.println(device->GetDeviceInfo()^)
 }
